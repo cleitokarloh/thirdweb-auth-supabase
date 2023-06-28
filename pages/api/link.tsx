@@ -13,6 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     error: userErr,
   } = await supabase.auth.getUser(access_token);
   if (!user) {
+    console.log(userErr);
     return res.status(400).json({ error: userErr });
   }
 
@@ -21,6 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN as string,
     payload
   );
+  console.log('verifyErr', verifyErr);
   if (!address) {
     return res.status(400).json({ error: verifyErr });
   }
